@@ -1,0 +1,80 @@
+def closure(I,nonterm):
+    temp = I
+    for prod in temp :
+        index = prod[1].index('.')
+        if(index<(len(prod[1])-1) and prod[1][index+1] in nonterm):
+            for production in nonterm[prod[1][index+1]]:
+                if([prod[1][index+1],str('.')+str(production)] not in temp):
+                    temp.append([prod[1][index+1],str('.')+str(production)])
+    return temp
+
+state = []
+I = []
+def GoTo(start,nonterm,term):
+    I.append(closure([[start+"'",'.'+start+""]],nonterm))
+    term += list(nonterm.keys())
+    for ind in I:
+        for grammar in term:
+            if(grammar == ''):
+                continue   
+            goto = False
+            goto1 = False
+            goto2 = False
+            goto3 = False
+            close = []
+            for prod in ind:
+                if(prod[1].index('.')<(len(prod[1])-1) and prod[1][prod[1].index('.')+1] is grammar):
+                    close.append([prod[0],prod[1][:prod[1].index('.')]+grammar+'.'+prod[1][prod[1].index('.')+2:]])
+            l = closure(close,nonterm)
+            if(len(l) == 0):
+                continue
+            if(grammar in nonterm.keys()):
+                goto1 = True
+            else:
+                goto3 = True
+            if(l not in I):
+                if(goto1):
+                    state.append([I.index(ind)+1,len(I)+1,grammar])
+                    goto = True
+                elif(goto3):
+                    goto2 = True
+                    state.append([I.index(ind)+1,len(I)+1,grammar])
+                I.append(l)
+
+            else:
+                if(goto1):
+                    goto = True
+                    state.append([I.index(ind)+1,I.index(l)+1,grammar])
+                elif(goto3):
+                    goto2 = True
+                    state.append([I.index(ind)+1,I.index(l)+1,grammar])
+
+
+
+terminals = []
+nonTerminals = dict()
+terminals = input("Enter the Terminals (|) : ").split("|")
+n = int(input("Enter the number of Non-Terminals : "))
+
+for i in range(n):
+    ch = input("NonTerminals : ").strip()
+    rules = input("Productions (|) : ").split("|")
+    nonTerminals[ch] = rules
+
+S = input("Start Symbol :  ")
+terminals+=[]
+print("Productions : ")
+for i in nonTerminals.keys():
+    print(i," -> ",end=' ')
+    for j in nonTerminals[i]:
+        print(j,end= ' | ')
+    print()
+
+GoTo(S,nonTerminals,terminals)
+print("I States: ")
+for count , i in enumerate(I):
+    print(count+1 , i)
+
+print("Transitions : ")
+for count , i in enumerate(state):
+    print(count+1, i)

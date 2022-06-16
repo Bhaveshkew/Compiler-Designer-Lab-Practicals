@@ -1,0 +1,14 @@
+repeat
+{
+if (c<5 || a<3)
+{
+c= b+d
+d= i+j
+}
+else
+{
+d= a+b
+k= x+y
+}
+}
+until (x<10 || y<5)
