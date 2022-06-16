@@ -1,0 +1,88 @@
+%{
+#include<stdio.h>
+#include<string.h>
+char c[100];
+int flagOL=0,flagUL=0,i=1,j;
+%}
+%%
+"<p>".*\n {strcpy(c,yytext);
+	     printf("\n\t");
+	     for(j=3;j<=strlen(c)-7;j++)
+	     {
+		printf("%c",c[j]);
+	     }
+}
+"<ol>".*\n {flagOL=1;
+	    flagUL=0;
+	    strcpy(c,yytext);
+	    for(j=0;c[j]!='\0';j++)
+            {
+	    	if(c[j]=='<' && c[j+1]=='o' && c[j+2]=='l' && c[j+3]=='>')
+	    	{
+			c[j]=' ';
+			c[j+1]=' ';
+			c[j+2]=' ';
+			c[j+3]=' ';
+			j=j+3;
+	    	}
+	   }		  
+	   printf("\n %s",c);
+}
+"<li>".*\n {strcpy(c,yytext);
+		  for(j=0;c[j]!='\0';j++)
+		  {
+			if(c[j]=='<' && c[j+1]=='l' && c[j+2]=='i' && c[j+3]=='>')
+			{
+				c[j]=' ';
+				c[j+1]=' ';
+				c[j+2]=' ';
+				c[j+3]=' ';
+				j=j+3;
+			}
+			if(c[j]=='<' && c[j+1]=='\\' && c[j+2]=='l' && c[j+3]=='i' && c[j+4]=='>')
+			{
+				c[j]=' ';
+				c[j+1]=' ';
+				c[j+2]=' ';
+				c[j+3]=' ';
+				c[j+4]=' ';
+				j=j+4;
+			}
+		  }
+		  if(flagOL==1 && flagUL==0)
+		  {
+			printf("\n %d \t",i);
+	   		for(j=4;j<=strlen(c)-6;j++)
+	     		{
+				printf("%c",c[j]);
+	     		}
+			i++;
+		  }
+		  if(flagOL==0 && flagUL==1)
+		  {
+			printf("\n * \t");
+	   		printf("%s",c);
+		  }
+}
+"<ul>".*\n {flagOL=0;
+	    flagUL=1;
+	    strcpy(c,yytext);
+	    for(j=0;c[j]!='\0';j++)
+            {
+	    	if(c[j]=='<' && c[j+1]=='u' && c[j+2]=='l' && c[j+3]=='>')
+	    	{
+			c[j]=' ';
+			c[j+1]=' ';
+			c[j+2]=' ';
+			c[j+3]=' ';
+			j=j+3;
+	    	}
+	   }
+	   printf("\n %s",c);
+}
+%%
+void main(){
+yyin = fopen("input.txt","r");
+yylex();
+}
+int yywrap(){return 1;}

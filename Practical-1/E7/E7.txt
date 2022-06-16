@@ -1,0 +1,15 @@
+aaa   TCS          Female  9.4  CSE  600000   aaa@rknec.edu     9999999999
+bbb   Infosys      Male    8.5  IT   750000   bbb@rknec.edu     7897897899
+ccc   Wipro        Female  9.9  IT   650000   ccc@rknec.edu     8888888888
+ddd   Accenture    Female  9.5  CSE  500000   ddd@rknec.edu     7777777777
+eee   Wipro        Male    8.6  CSE  400000   eee1@rknec.edu    7654555555
+fff   TCS          Male    8.8  CSE  700000   fff@rknec.edu     8877887788
+ggg   TCS          Male    8.7  EC   750000   ggg1@rknec.edu    7766776677
+hhh   Informatica  Female  9.4  EC   600000   hhh_1@rknec.edu   8898898898
+iii   Wipro        Female  8.9  IT   400000   iii@rknec.edu     9900990099
+jjj   Accenture    Female  9.0  CSE  700000   jjj@rknec.edu     9898977799
+kkk   Wipro        Female  9.5  CSE  800000   kkk1.1@rknec.edu  9898977799
+lll   Wipro        Male    9.6  CSE  900000   lll.m@rknec.edu   9898977799
+mmm   Informatica  Female  9.4  EC   1000000  mmm@rknec.edu     9898977799
+nnn   Informatica  Male    9.9  EC   1100000  nnn@rknec.edu     9898977799
+ooo   Informatica  Male    9.8  IT   1200000  ooo_@rknec.edu    9898977799

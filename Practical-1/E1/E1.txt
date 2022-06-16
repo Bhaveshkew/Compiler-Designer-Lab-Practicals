@@ -1,0 +1,5 @@
+void main()
+{
+int ab=1;
+printf("\n %d ",ab);
+}
